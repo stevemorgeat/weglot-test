@@ -8,9 +8,9 @@
   "license": "MIT",
   "scripts": {
     "test:unit": "jest test/",
-    "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
+    "format": "prettier --write 'src/**/*.ts' ./src/index.ts  'test/**/*.ts'",
     "test:lint": "eslint . --ext .ts",
-    "test:ts": "tsc --noEmit src/**/*.ts test/**/*.ts",
+    "test:ts": "tsc --noEmit src/**/*.ts ./src/index.ts ./test/**/*.ts",
     "test:lint:ts": "npm run test:lint && npm run test:ts"
   },
   "devDependencies": {
