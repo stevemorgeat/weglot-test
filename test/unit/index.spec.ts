@@ -1,7 +1,12 @@
 import path from "path";
 import { FileReaderService } from "../../src/services/FileReader";
+import { Schedule } from "../../src";
 
 describe("ShiftScheduler", () => {
+  const workingDay = [1, 2, 3, 4, 5];
+  const workStartHour = 8;
+  const workEndHour = 17;
+  const meetingDuration = 59;
   const inputDirectory = path.join(__dirname, "../..", "data");
   const inputStringFiles =
     FileReaderService.readFiles(inputDirectory, "input") || [];
@@ -12,6 +17,31 @@ describe("ShiftScheduler", () => {
     test("should have 5 set of shifts", () => {
       expect(inputStringFiles.length).toBe(5);
       expect(outputStringFiles.length).toBe(5);
+    });
+
+    test.only("should findFirstMeetingAvailable return the right slot available for each files", () => {
+      for (let i = 0; i < inputStringFiles.length; i++) {
+        const input = inputStringFiles[i];
+        const output = outputStringFiles[i];
+        console.log(
+          "test" + i,
+          input,
+          workStartHour,
+          workEndHour,
+          meetingDuration,
+          workingDay,
+        );
+        const result = Schedule.findFirstMeetingAvailable(
+          input,
+          workStartHour,
+          workEndHour,
+          meetingDuration,
+          workingDay,
+        );
+        console.log("test" + i, output, result, output === result);
+
+        expect(result).toBe(output);
+      }
     });
   });
 
