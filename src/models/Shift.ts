@@ -40,7 +40,7 @@ export class Shift {
   }
 
   // Méthode pour mettre à jour la plage horaire en cas de chevauchement
-  public updateOverlap(otherShift: Shift): void {
+  public mergeOverlapShift(otherShift: Shift): void {
     // Mettre à jour les temps de début et de fin pour englober les deux plages horaires
     this.startTime = Math.min(this.startTime, otherShift.startTime);
     this.endTime = Math.max(this.endTime, otherShift.endTime);
@@ -49,6 +49,7 @@ export class Shift {
     );
     this.end = Shift.minutesToTime(Math.max(this.endTime, otherShift.endTime));
   }
+
   // private
   private static isValidWorkingDay(day: number): boolean {
     return day >= 1 && day <= 5;
@@ -60,16 +61,9 @@ export class Shift {
       return false;
     }
 
-    // Split the time string into hours and minutes
     const [hours, minutes] = time.split(":").map((str) => parseInt(str, 10));
 
-    // Check if hours and minutes are within valid ranges
-    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
-      return false;
-    }
-
-    // Time is valid
-    return true;
+    return !(hours < 0 || hours > 23 || minutes < 0 || minutes > 59);
   }
 
   private static timeToMinutes(time: string): number {

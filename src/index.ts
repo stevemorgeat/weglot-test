@@ -11,11 +11,11 @@ export class Schedule {
     const unAvailabilityShifts =
       ShiftManager.transformInputToShifts(unAvailabilityInput);
 
-    const nonOverlappingShifts =
-      ShiftManager.fusionOverlapShift(unAvailabilityShifts);
+    const mergedOverlappingShifts =
+      ShiftManager.mergeOverlapShift(unAvailabilityShifts);
 
     return ShiftManager.retrieveFirstAvailableSlot(
-      nonOverlappingShifts,
+      mergedOverlappingShifts,
       workingDay,
       workStartHour,
       workEndHour,

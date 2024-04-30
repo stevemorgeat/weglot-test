@@ -2,7 +2,7 @@ import { Shift } from "../../../src/models/Shift";
 import { ShiftManager } from "../../../src/services/ShiftManager";
 
 describe("ShiftManager", () => {
-  describe("fusionOverlapShift", () => {
+  describe("mergeOverlapShift", () => {
     it("should merge overlapping shifts", () => {
       const unavailabilityShifts: Shift[] = [
         new Shift("1", "10:45", "15:49"),
@@ -18,7 +18,7 @@ describe("ShiftManager", () => {
         new Shift("4", "10:45", "15:49"),
       ];
 
-      const result = ShiftManager.fusionOverlapShift(unavailabilityShifts);
+      const result = ShiftManager.mergeOverlapShift(unavailabilityShifts);
       expect(result).toEqual(expectedShifts);
     });
 
@@ -31,7 +31,7 @@ describe("ShiftManager", () => {
 
       const expectedShifts: Shift[] = unavailabilityShifts;
 
-      const result = ShiftManager.fusionOverlapShift(unavailabilityShifts);
+      const result = ShiftManager.mergeOverlapShift(unavailabilityShifts);
       expect(result).toEqual(expectedShifts);
     });
 
@@ -40,7 +40,7 @@ describe("ShiftManager", () => {
 
       const expectedShifts: Shift[] = [];
 
-      const result = ShiftManager.fusionOverlapShift(unavailabilityShifts);
+      const result = ShiftManager.mergeOverlapShift(unavailabilityShifts);
       expect(result).toEqual(expectedShifts);
     });
   });

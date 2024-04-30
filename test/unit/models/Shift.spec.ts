@@ -35,12 +35,12 @@ describe("Shift class", () => {
     expect(shift1.isOverlap(shift4)).toBe(false);
   });
 
-  test("UpdateOverlap method should correctly update overlapping shifts", () => {
+  test("mergeOverlapShift method should correctly update overlapping shifts", () => {
     const shift1 = new Shift("1", "08:00", "09:00");
     const shift2 = new Shift("1", "08:30", "09:30");
 
     // Update shift1 to overlap with shift2
-    shift1.updateOverlap(shift2);
+    shift1.mergeOverlapShift(shift2);
 
     // Shift1's start time should be updated to 08:00
     expect(shift1.start).toBe("08:00");
