@@ -44,6 +44,10 @@ export class Shift {
     // Mettre à jour les temps de début et de fin pour englober les deux plages horaires
     this.startTime = Math.min(this.startTime, otherShift.startTime);
     this.endTime = Math.max(this.endTime, otherShift.endTime);
+    this.start = Shift.minutesToTime(
+      Math.min(this.startTime, otherShift.startTime),
+    );
+    this.end = Shift.minutesToTime(Math.max(this.endTime, otherShift.endTime));
   }
   // private
   private static isValidWorkingDay(day: number): boolean {
@@ -51,8 +55,21 @@ export class Shift {
   }
 
   private static isValidTime(time: string): boolean {
-    // For example, check if the time matches the format "hh:mm"
-    return /^\d{2}:\d{2}$/.test(time);
+    // Check if the time matches the format "hh:mm"
+    if (!/^\d{2}:\d{2}$/.test(time)) {
+      return false;
+    }
+
+    // Split the time string into hours and minutes
+    const [hours, minutes] = time.split(":").map((str) => parseInt(str, 10));
+
+    // Check if hours and minutes are within valid ranges
+    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+      return false;
+    }
+
+    // Time is valid
+    return true;
   }
 
   private static timeToMinutes(time: string): number {

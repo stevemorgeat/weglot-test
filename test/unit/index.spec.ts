@@ -19,18 +19,11 @@ describe("ShiftScheduler", () => {
       expect(outputStringFiles.length).toBe(5);
     });
 
-    test.only("should findFirstMeetingAvailable return the right slot available for each files", () => {
+    test("should findFirstMeetingAvailable return the right slot available for each files", () => {
       for (let i = 0; i < inputStringFiles.length; i++) {
         const input = inputStringFiles[i];
         const output = outputStringFiles[i];
-        console.log(
-          "test" + i,
-          input,
-          workStartHour,
-          workEndHour,
-          meetingDuration,
-          workingDay,
-        );
+
         const result = Schedule.findFirstMeetingAvailable(
           input,
           workStartHour,
@@ -38,7 +31,6 @@ describe("ShiftScheduler", () => {
           meetingDuration,
           workingDay,
         );
-        console.log("test" + i, output, result, output === result);
 
         expect(result).toBe(output);
       }
